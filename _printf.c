@@ -9,8 +9,8 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int count = 0;
-	char cc;
+	int count = 0, num, len;
+	char cc, buffer[20];
 
 	if (format == NULL)
 	{
@@ -31,6 +31,14 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					count += write(1, va_arg(args, char *), 5);
+					break;
+				case 'd':
+				case 'i':
+					{
+						num = va_arg(args, int);
+						len = snprintf(buffer, sizeof(buffer), "%d", num);
+						count += write(1, buffer, len);
+					}
 					break;
 				case '%':
 					count += write(1, "%", 1);
