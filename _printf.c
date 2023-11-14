@@ -5,12 +5,12 @@
  * @format: stirng
  * Return: length of the string
  */
-void binary(int numm)
+void binary(unsigned int numm)
 {
 	char binaryy[32];
 	int i = 0;
 
-	while (num > 0)
+	while (numm > 0)
 	{
 		binaryy[i++] = (numm % 2) + '0';
 		numm /= 2;
