@@ -5,6 +5,21 @@
  * @format: stirng
  * Return: length of the string
  */
+void binary(int numm)
+{
+	char binaryy[32];
+	int i = 0;
+
+	while (num > 0)
+	{
+		binaryy[i++] = (numm % 2) + '0';
+		numm /= 2;
+	}
+	for (i = i - 1; i >= 0; i--)
+	{
+		write(1, &binaryy[i], 1);
+	}
+}
 
 int _printf(const char *format, ...)
 {
