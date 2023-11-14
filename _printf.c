@@ -9,8 +9,8 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int count = 0, num, len;
-	char cc, buffer[20];
+	int count = 0, num, len, strlen = 0;
+	char cc, buffer[20], *str;
 
 	if (format == NULL)
 	{
@@ -30,7 +30,10 @@ int _printf(const char *format, ...)
 					count += write(1, &cc, 1);
 					break;
 				case 's':
-					count += write(1, va_arg(args, char *), 5);
+					str = va_arg(args, char*);
+					while (str[strlen] != '\0')
+						strlen++;
+					write(1, str, strlen);
 					break;
 				case 'd':
 				case 'i':
