@@ -7,33 +7,37 @@
  */
 void binary(unsigned int numm)
 {
-	char binaryy[32];
+	char bits[32];
 	int i = 0;
+	char digit;
+
+	if (numm == 0)
+	{
+		write(1, "0", 1);
+		return;
+	}
 
 	while (numm > 0)
 	{
-		binaryy[i++] = (numm % 2) + '0';
+		bits[i++] = (numm % 2) + '0';
 		numm /= 2;
 	}
-	for (i = i - 1; i >= 0; i--)
+	for (--i; i >= 0; i--)
 	{
-		write(1, &binaryy[i], 1);
+		write(1, &bits[i], 1);
 	}
 }
 
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int count = 0, num, len, strlen = 0;
-	char cc, buffer[20], *str;
 
-	if (format == NULL)
-	{
-		return (-1);
-	}
 	va_start(args, format);
 
-	while (*format != '\0')
+	int count = 0;
+	char buffer[20];
+
+	while (*format)
 	{
 		if (*format == '%')
 		{
@@ -41,29 +45,24 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-					cc = va_arg(args, int);
-					count += write(1, &cc, 1);
+					count += write(1, &va_arg(args, int), 1);
 					break;
 				case 's':
-					str = va_arg(args, char*);
-					while (str[strlen] != '\0')
-						strlen++;
-					write(1, str, strlen);
-					break;
-				case 'd':
+					count += write(1, va_arg(args, char *))
+						break;
+				case 'd': 
 				case 'i':
 					{
-						num = va_arg(args, int);
-						len = snprintf(buffer, sizeof(buffer), "%d", num);
-						count += write(1, buffer, len);
+						count += write(1, buffer, snprintf(buffer, sizeof(buffer), "%d", va_arg(args, int)));
+						break;
 					}
-					break;
+				case 'b': 
+					  print_binary(va_arg(args, unsigned int)); count += 32; 
+					  break;
 				case '%':
 					count += write(1, "%", 1);
 					break;
-				default:
-					count += write(1, "%", 1);
-					count += write(1, format, 1);
+				default:count += write(1, "%", 1) + write(1, format, 1); 
 					break;
 			}
 		}
